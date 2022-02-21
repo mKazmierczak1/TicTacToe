@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
-
 import application.model.Board;
 import application.model.GameAI;
 import javafx.collections.ObservableList;
@@ -14,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -93,21 +94,25 @@ public class GameBoardController implements Initializable {
 	
 	private boolean checkIfEnd(MouseEvent event, int response, boolean ifAI) {
 		if (response == 1) {
-			System.out.println(((!ifAI ? turn : (turn == 1 ? 0 : 1)) == 1 ? "X" : "O") + " won!");
-			
-			backToMenu(event);
-			
+			showInfoDialog(event, ((!ifAI ? turn : (turn == 1 ? 0 : 1)) == 1 ? "X" : "O") + " won!");
 			return true;
 		}
 		else if (response == 2) {
-			System.out.println("Draw!");
-			
-			backToMenu(event);
-			
+			showInfoDialog(event, "Draw!");
 			return true;
 		}
 		
 		return false;
+	}
+	
+	private void showInfoDialog(MouseEvent event, String info) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Game Result");
+		alert.setHeaderText(null);
+		alert.setContentText(info);
+
+		alert.showAndWait();
+		backToMenu(event);
 	}
 	
 	private void backToMenu(MouseEvent event) {
