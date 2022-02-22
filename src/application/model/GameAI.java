@@ -85,7 +85,7 @@ public class GameAI {
 		return priority;
 	}
 	
-	int findFreeCell(int[] board) {
+	private int findFreeCell(int[] board) {
 		for (int i = 0; i < board.length; i++)
 			if (board[i] == 0)
 				return i;
